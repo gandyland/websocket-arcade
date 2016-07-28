@@ -4,11 +4,12 @@
   "description": "Pick some fun, simple game for two (or more?) players.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/RobertAKARobin/websocket-arcade.git"
+    "url": "git+https://github.com/RobertAKARobin/websocket-arcade.git"
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +18,13 @@
   },
   "homepage": "https://github.com/RobertAKARobin/websocket-arcade",
   "dependencies": {
-    "express": "^4.12.4",
-    "hbs": "^3.0.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "hbs": "^3.1.1",
     "mongoose": "^4.0.3",
     "nodemon": "^1.3.7",
     "socket.io": "^1.3.5"
-  }
+  },
+  "devDependencies": {},
+  "keywords": []
 }

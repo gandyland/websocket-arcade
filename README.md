@@ -1,3 +1,6 @@
+GitHub:
+https://github.com/gandyland/websocket-arcade/tree/solution
+
 # Websocket Arcade
 
 Pick some fun, simple game for two (or more?) players.
