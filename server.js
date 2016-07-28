@@ -1,49 +1,16 @@
-var app = require("express")();
-var http = require("http").Server(app);
-var mongoose = require("mongoose");
-var io = require("socket.io")(http);
+var express = require('express');
+var async = require('async');
+var app = express()
+var io = require('socket.io').listen(app.listen(8000));
 
-mongoose.connect("mongodb://localhost/test");
-var db = mongoose.connection;
-var Row = mongoose.model("Row", new mongoose.Schema({
-  space0: "String",
-  space1: "String",
-  space2: "String"
-}));
+app.use('/static', express.static(__dirname + '/static'));
 
-app.set("view engine", "hbs");
-
-app.get("/", function(req, res){
-  Row.find().lean().exec(function(err, rows){
-    res.render("index", {rows: rows});
-  });
+app.get('/', function(req, res) {
+    res.render('index.jade');
 });
 
-io.on("connection", function(socket){
-
-  socket.on("move", function(moveData){
-    var coords = moveData[0].split("_"),
-        newData = {},
-        space;
-    coords = {
-      x: coords[0].substring(1),
-      y: coords[1].substring(1)
-    }
-    space = "space" + coords.x;
-    newData[space] = moveData[1];
-    Row.update({_id: coords.y}, newData, function(doc){
-    });
-    io.emit("update", moveData);
-  });
-
-  socket.on("reset", function(){
-    Row.collection.remove();
-    for(x = 0; x < 3; x++){
-      new Row({space0: "", space1: "", space2: ""}).save();
-    }
-    io.emit("reset");
-  });
-
+app.get('/landingPage', function(req, res) {
+    res.render('landing.jade');
 });
 
-http.listen(3000);
+console.log('Listening on port 3000');
